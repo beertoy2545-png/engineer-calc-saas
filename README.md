@@ -1,8 +1,8 @@
 # Engineer Calc
 
-เครื่องมือคำนวณวิศวกรรมออนไลน์ฟรี สำหรับวิศวกรทุกสาขา — สูตรและข้อมูลอ้างอิงดึงมาจากเอกสารวิชาการจริง
-(ME444 Engineering Piping System Design และ ME310 Mechanical Design, มหาวิทยาลัยธรรมศาสตร์)
-ทุกขั้นตอนการคำนวณแสดงให้ตรวจสอบได้ ไม่ใช่กล่องดำ
+เครื่องมือคำนวณวิศวกรรมออนไลน์ฟรี สำหรับวิศวกรทุกสาขา — สูตรและข้อมูลอ้างอิงดึงมาจากเอกสารวิชาการและมาตรฐานสากลจริง
+(ME444 Engineering Piping System Design, ME310 Mechanical Design จากมหาวิทยาลัยธรรมศาสตร์, IEC 60364-5-52,
+และตำรากลศาสตร์วัสดุมาตรฐาน) ทุกขั้นตอนการคำนวณแสดงให้ตรวจสอบได้ ไม่ใช่กล่องดำ
 
 ⚠️ **ทุกเครื่องมือเป็นเครื่องมือช่วยประมาณการเบื้องต้นเท่านั้น** ไม่ใช่การคำนวณที่ผ่านการรับรองทางวิศวกรรม
 ก่อนนำผลลัพธ์ไปใช้ออกแบบหรือก่อสร้างจริง ต้องให้วิศวกรที่มีใบอนุญาตตรวจสอบทุกครั้ง
@@ -16,6 +16,8 @@
 | Pump Head, Power & NPSH | Piping | ME444 Chapter 6 |
 | Steam Flow & Pipe Sizing | Piping | ME444 Chapter 11-12 |
 | Shaft Design | Machine Design | ME310 — ASME Code Method |
+| Cable Sizing & Voltage Drop | Electrical | IEC 60364-5-52 |
+| Beam Bending & Deflection | Structural | Euler-Bernoulli Beam Theory |
 
 ## Getting Started
 
