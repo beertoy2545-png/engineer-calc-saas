@@ -36,6 +36,7 @@
 | Ship Stability: Metacentric Height | Marine | IMO IS Code 2008 |
 | Slope Stability (Infinite Slope) | Mining | Infinite Slope Method |
 | Radiation Physics: Decay & Shielding | Nuclear | Exponential Decay Law / Beer-Lambert |
+| Crop Water Requirement & Irrigation | Agricultural | FAO-56 Crop Coefficient Method |
 
 ## Getting Started
 

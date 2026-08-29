@@ -203,4 +203,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Nuclear",
     standard: "Exponential Decay Law / Beer-Lambert",
   },
+  {
+    href: "/crop-water",
+    title: "Crop Water Requirement & Irrigation",
+    description:
+      "คำนวณความต้องการน้ำของพืชและรอบการให้น้ำด้วยวิธี FAO-56 Crop Coefficient",
+    category: "Agricultural",
+    standard: "FAO-56 Crop Coefficient Method",
+  },
 ];
