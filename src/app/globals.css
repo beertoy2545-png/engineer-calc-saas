@@ -24,3 +24,40 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Print / "Export to PDF" support (via the browser's native print dialog).
+   Applies to every page automatically — no per-tool integration needed. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  /* Preserve status colors (emerald/red/amber result cards) — browsers
+     strip background colors by default when printing. */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Sticky results panels (many calculators use lg:sticky for on-screen
+     scrolling) would otherwise overlap or clip when paginated for print. */
+  .lg\:sticky {
+    position: static !important;
+  }
+
+  /* Avoid slicing a result card or table row across a page break. */
+  .rounded-xl,
+  tr {
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 14mm;
+  }
+}

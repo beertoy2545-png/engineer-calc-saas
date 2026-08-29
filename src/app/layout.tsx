@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SiteNav from "@/components/SiteNav";
+import ExportPdfButton from "@/components/ExportPdfButton";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,7 +31,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <SiteNav />
+        <div className="hidden border-b border-slate-300 pb-2 text-xs text-slate-500 print:block">
+          Engineer Calc — เครื่องมือคำนวณวิศวกรรมออนไลน์
+        </div>
         {children}
+        <ExportPdfButton />
       </body>
     </html>
   );

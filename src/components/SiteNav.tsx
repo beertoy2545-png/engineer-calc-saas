@@ -8,7 +8,7 @@ export default function SiteNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="border-b border-slate-200 bg-white">
+    <nav className="no-print border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto px-4 py-3">
         <Link
           href="/"
