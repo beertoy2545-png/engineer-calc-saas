@@ -59,4 +59,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Structural",
     standard: "Euler-Bernoulli Beam Theory",
   },
+  {
+    href: "/heat-exchanger",
+    title: "Heat Exchanger Sizing (LMTD)",
+    description:
+      "คำนวณพื้นที่แลกเปลี่ยนความร้อนที่ต้องการ เปรียบเทียบ Counterflow กับ Parallel Flow",
+    category: "Chemical / Process",
+    standard: "LMTD Method",
+  },
 ];
