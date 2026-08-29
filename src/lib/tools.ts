@@ -115,4 +115,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Control Systems",
     standard: "Ziegler-Nichols Tuning Method",
   },
+  {
+    href: "/aerospace",
+    title: "Rocket Propulsion & Orbital Mechanics",
+    description:
+      "คำนวณ Δv ด้วยสมการจรวด Tsiolkovsky และความเร็ว/คาบวงโคจรวงกลม",
+    category: "Aerospace",
+    standard: "Tsiolkovsky Rocket Equation",
+  },
 ];
