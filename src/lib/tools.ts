@@ -83,4 +83,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Utilities",
     standard: "SI / Imperial standard constants",
   },
+  {
+    href: "/statistics",
+    title: "Statistics & Regression",
+    description:
+      "วิเคราะห์ข้อมูลวิจัย/ทดลอง สถิติเชิงพรรณนา และการถดถอยเชิงเส้น สำหรับงานวิจัยและทดลอง",
+    category: "Utilities",
+    standard: "Least-Squares Linear Regression",
+  },
 ];
