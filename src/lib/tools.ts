@@ -163,4 +163,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Civil",
     standard: "General Bearing Capacity Equation",
   },
+  {
+    href: "/renewable-energy",
+    title: "Renewable Energy: Solar PV & Wind Turbine",
+    description:
+      "คำนวณขนาดระบบโซลาร์เซลล์ที่ต้องการ และกำลังผลิตของกังหันลมจากความเร็วลม",
+    category: "Renewable Energy",
+    standard: "PVWatts Method / Betz Limit",
+  },
 ];

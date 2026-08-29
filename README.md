@@ -31,6 +31,7 @@
 | Biomechanics: Joint Static Equilibrium | Biomedical | Static Equilibrium Analysis |
 | Vehicle Braking & Weight Transfer | Automotive | Rigid-Body Vehicle Dynamics |
 | Shallow Foundation Bearing Capacity | Civil | General Bearing Capacity Equation |
+| Renewable Energy: Solar PV & Wind Turbine | Renewable Energy | PVWatts Method / Betz Limit |
 
 ## Getting Started
 
