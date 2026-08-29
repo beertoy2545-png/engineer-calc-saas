@@ -116,3 +116,51 @@ export function calculateBeamAnalysis(input: BeamAnalysisInput): BeamAnalysisRes
     deflectionOk: maxDeflectionMm <= deflectionLimitMm,
   };
 }
+
+// Deflection shape y(x) along the span, for plotting. Each closed-form
+// expression below is the standard Euler-Bernoulli solution for its
+// case; each was cross-checked by confirming it reduces to this module's
+// already-validated *maximum* deflection formula at its governing x
+// (x=L/2 for simply supported, x=L for cantilever).
+export interface DeflectionPoint {
+  xMm: number;
+  yMm: number;
+}
+
+export function calculateDeflectionCurve(
+  input: BeamAnalysisInput,
+  numPoints = 41,
+): DeflectionPoint[] {
+  const { iMm4 } = sectionProperties(input.crossSection);
+  const eMpa = input.elasticModulusGpa * 1000;
+  const lMm = input.spanM * 1000;
+  const pN = input.pointLoadKn * 1000;
+  const wNPerMm = input.udlKnPerM;
+  const ei = eMpa * iMm4;
+
+  const points: DeflectionPoint[] = [];
+  for (let i = 0; i < numPoints; i++) {
+    const x = (lMm * i) / (numPoints - 1);
+    let y: number;
+
+    if (input.supportType === "simplySupported") {
+      // Use the nearer half by symmetry (formula is for 0<=x<=L/2).
+      const xEff = Math.min(x, lMm - x);
+      if (input.loadType === "point") {
+        y = (pN * xEff * (3 * lMm ** 2 - 4 * xEff ** 2)) / (48 * ei);
+      } else {
+        // Distributed-load formula is valid over the full span directly.
+        y = (wNPerMm * x * (lMm ** 3 - 2 * lMm * x ** 2 + x ** 3)) / (24 * ei);
+      }
+    } else {
+      if (input.loadType === "point") {
+        y = (pN * x ** 2 * (3 * lMm - x)) / (6 * ei);
+      } else {
+        y = (wNPerMm * x ** 2 * (x ** 2 - 4 * lMm * x + 6 * lMm ** 2)) / (24 * ei);
+      }
+    }
+
+    points.push({ xMm: x, yMm: y });
+  }
+  return points;
+}

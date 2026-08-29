@@ -11,6 +11,7 @@ import {
 import { NumberField } from "@/components/ui/NumberField";
 import { WarningBanner } from "@/components/ui/WarningBanner";
 import { fmt } from "@/lib/format";
+import BeamDiagram from "@/components/BeamDiagram";
 
 const DEFAULT_INPUT: BeamAnalysisInput = {
   supportType: "simplySupported",
@@ -60,6 +61,11 @@ export default function BeamAnalysisCalculator() {
         หลายช่วง หรือตำแหน่งโหลดนอกกึ่งกลาง กรุณาให้วิศวกรโครงสร้างที่มีใบอนุญาตตรวจสอบและ
         เซ็นรับรองก่อนก่อสร้างจริง
       </WarningBanner>
+
+      <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 className="mb-3 font-medium text-slate-900">แผนภาพคาน (Beam Diagram)</h2>
+        <BeamDiagram input={input} />
+      </div>
 
       <div className="mt-8 grid grid-cols-1 items-start gap-8 lg:grid-cols-[380px_1fr]">
         <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">

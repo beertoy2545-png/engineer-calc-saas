@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateBeamAnalysis } from "./beamAnalysis";
+import { calculateBeamAnalysis, calculateDeflectionCurve } from "./beamAnalysis";
 
 describe("calculateBeamAnalysis", () => {
   it("matches a hand-calculated simply supported center point load case", () => {
@@ -81,5 +81,53 @@ describe("calculateBeamAnalysis", () => {
       deflectionLimitDenominator: 360,
     });
     expect(result.stressOk).toBe(false);
+  });
+});
+
+describe("calculateDeflectionCurve", () => {
+  const ssPointInput = {
+    supportType: "simplySupported" as const,
+    loadType: "point" as const,
+    pointLoadKn: 10,
+    udlKnPerM: 0,
+    spanM: 4,
+    elasticModulusGpa: 200,
+    crossSection: { type: "rectangular" as const, widthMm: 100, heightMm: 200 },
+    yieldStrengthMpa: 250,
+    safetyFactor: 1.67,
+    deflectionLimitDenominator: 360,
+  };
+
+  it("has zero deflection at both supports (simply supported)", () => {
+    const points = calculateDeflectionCurve(ssPointInput);
+    expect(points[0].yMm).toBeCloseTo(0, 6);
+    expect(points[points.length - 1].yMm).toBeCloseTo(0, 6);
+  });
+
+  it("peaks at midspan matching the already-validated max deflection (simply supported, point load)", () => {
+    const points = calculateDeflectionCurve(ssPointInput, 41); // odd count -> exact midpoint sample
+    const result = calculateBeamAnalysis(ssPointInput);
+    const mid = points[(points.length - 1) / 2];
+    expect(mid.xMm).toBeCloseTo(2000, 6); // L/2 in mm
+    expect(mid.yMm).toBeCloseTo(result.maxDeflectionMm, 3);
+  });
+
+  it("peaks at the free end matching the already-validated max deflection (cantilever, UDL)", () => {
+    const cantileverUdlInput = {
+      supportType: "cantilever" as const,
+      loadType: "udl" as const,
+      pointLoadKn: 0,
+      udlKnPerM: 5,
+      spanM: 3,
+      elasticModulusGpa: 200,
+      crossSection: { type: "rectangular" as const, widthMm: 150, heightMm: 300 },
+      yieldStrengthMpa: 250,
+      safetyFactor: 1.67,
+      deflectionLimitDenominator: 360,
+    };
+    const points = calculateDeflectionCurve(cantileverUdlInput);
+    const result = calculateBeamAnalysis(cantileverUdlInput);
+    expect(points[0].yMm).toBeCloseTo(0, 6); // fixed end
+    expect(points[points.length - 1].yMm).toBeCloseTo(result.maxDeflectionMm, 3);
   });
 });
