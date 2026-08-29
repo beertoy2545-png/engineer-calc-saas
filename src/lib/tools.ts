@@ -131,4 +131,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Industrial",
     standard: "Time Value of Money",
   },
+  {
+    href: "/petroleum",
+    title: "Petroleum: Reserves & Well Inflow",
+    description:
+      "คำนวณปริมาณสำรองน้ำมัน/ก๊าซ (OOIP/OGIP) และอัตราการไหลเข้าหลุมด้วยกฎของ Darcy",
+    category: "Petroleum",
+    standard: "Volumetric Method / Darcy Radial Flow",
+  },
 ];
