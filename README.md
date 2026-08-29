@@ -34,6 +34,7 @@
 | Renewable Energy: Solar PV & Wind Turbine | Renewable Energy | PVWatts Method / Betz Limit |
 | Fatigue Analysis (Modified Goodman) | Machine Design | Marin Equation / Modified Goodman |
 | Ship Stability: Metacentric Height | Marine | IMO IS Code 2008 |
+| Slope Stability (Infinite Slope) | Mining | Infinite Slope Method |
 
 ## Getting Started
 

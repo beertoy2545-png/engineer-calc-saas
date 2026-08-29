@@ -187,4 +187,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Marine",
     standard: "IMO IS Code 2008",
   },
+  {
+    href: "/slope-stability",
+    title: "Slope Stability (Infinite Slope)",
+    description:
+      "คำนวณ Factor of Safety ของลาดดิน/หน้าเหมืองด้วยวิธี Infinite Slope",
+    category: "Mining",
+    standard: "Infinite Slope Method",
+  },
 ];
