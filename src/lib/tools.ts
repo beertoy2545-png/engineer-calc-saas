@@ -67,4 +67,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Chemical / Process",
     standard: "LMTD Method",
   },
+  {
+    href: "/truss-analysis",
+    title: "2D Truss Analysis",
+    description:
+      "วิเคราะห์โครงถัก 2 มิติด้วยวิธี Direct Stiffness Method — กำหนดจุดต่อ ชิ้นส่วน และโหลดเอง",
+    category: "Structural",
+    standard: "Matrix Stiffness Method",
+  },
 ];
