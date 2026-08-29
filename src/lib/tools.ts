@@ -43,4 +43,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Machine Design",
     standard: "ME310 — ASME Code Method",
   },
+  {
+    href: "/cable-sizing",
+    title: "Cable Sizing & Voltage Drop",
+    description:
+      "คำนวณขนาดสายไฟฟ้าจากโหลด พร้อมตรวจสอบ Voltage Drop และ correction factor",
+    category: "Electrical",
+    standard: "IEC 60364-5-52",
+  },
 ];

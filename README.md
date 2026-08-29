@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Engineer Calc
+
+เครื่องมือคำนวณวิศวกรรมออนไลน์ฟรี สำหรับวิศวกรทุกสาขา — สูตรและข้อมูลอ้างอิงดึงมาจากเอกสารวิชาการจริง
+(ME444 Engineering Piping System Design และ ME310 Mechanical Design, มหาวิทยาลัยธรรมศาสตร์)
+ทุกขั้นตอนการคำนวณแสดงให้ตรวจสอบได้ ไม่ใช่กล่องดำ
+
+⚠️ **ทุกเครื่องมือเป็นเครื่องมือช่วยประมาณการเบื้องต้นเท่านั้น** ไม่ใช่การคำนวณที่ผ่านการรับรองทางวิศวกรรม
+ก่อนนำผลลัพธ์ไปใช้ออกแบบหรือก่อสร้างจริง ต้องให้วิศวกรที่มีใบอนุญาตตรวจสอบทุกครั้ง
+
+## เครื่องมือที่มีอยู่
+
+| เครื่องมือ | สาขา | อ้างอิง |
+|---|---|---|
+| Cooling Load | HVAC | Rule-of-thumb estimation |
+| Pipe Sizing | Piping | ME444 — Darcy-Weisbach / Swamee-Jain |
+| Pump Head, Power & NPSH | Piping | ME444 Chapter 6 |
+| Steam Flow & Pipe Sizing | Piping | ME444 Chapter 11-12 |
+| Shaft Design | Machine Design | ME310 — ASME Code Method |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+เปิด [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## คำสั่งที่ใช้บ่อย
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev      # dev server
+npm run build    # production build
+npm run lint     # eslint
+npm run test     # vitest — unit tests สำหรับทุกสูตรคำนวณ
+```
 
-## Learn More
+## โครงสร้างโปรเจกต์
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/                 # หน้าเว็บแต่ละเครื่องมือ (Next.js App Router)
+  components/          # UI components
+    ui/                # ส่วนประกอบที่ใช้ร่วมกันทุกเครื่องมือ
+  lib/
+    calculations/       # ตรรกะคำนวณล้วนๆ + unit tests (*.test.ts)
+    tools.ts            # รายชื่อเครื่องมือทั้งหมด (ใช้ร่วมกันโดย nav และหน้าแรก)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+สูตรคำนวณทุกตัวแยกไว้ใน `src/lib/calculations/` เป็นไฟล์ `.ts` ล้วน (ไม่ผูกกับ React)
+พร้อม comment อ้างอิงแหล่งที่มาของสูตรกำกับไว้ที่หัวไฟล์ — ให้วิศวกรที่ปรึกษาตรวจสอบได้ง่าย
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## เพิ่มเครื่องมือใหม่
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. สร้างไฟล์คำนวณใน `src/lib/calculations/<name>.ts` พร้อม comment อ้างอิงแหล่งสูตร
+2. เขียน `*.test.ts` คู่กัน — อย่างน้อยควรมี regression test จากตัวอย่างที่คำนวณด้วยมือหรือจากหนังสือ
+3. สร้าง UI component ใน `src/components/` โดยใช้ `NumberField` และ `WarningBanner` จาก `src/components/ui/`
+4. เพิ่ม route ใหม่ใน `src/app/<name>/page.tsx` พร้อม `metadata` (title, description)
+5. เพิ่มรายการเครื่องมือใหม่ใน `src/lib/tools.ts`
