@@ -91,4 +91,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Utilities",
     standard: "Least-Squares Linear Regression",
   },
+  {
+    href: "/rc-beam-design",
+    title: "RC Beam Flexural Design",
+    description:
+      "ออกแบบกำลังรับโมเมนต์ดัดคานคอนกรีตเสริมเหล็ก ตรวจสอบเหล็กเสริมขั้นต่ำและสถานะหน้าตัด",
+    category: "Civil",
+    standard: "ACI 318 — Whitney Stress Block",
+  },
 ];
