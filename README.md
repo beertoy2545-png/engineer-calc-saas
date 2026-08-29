@@ -22,6 +22,8 @@
 | 2D Truss Analysis (interactive canvas) | Structural | Matrix Stiffness Method (numerical solver) |
 | Unit Converter | Utilities | SI/Imperial standard constants |
 | Statistics & Regression | Utilities | Least-Squares Linear Regression |
+| RC Beam Flexural Design | Civil | ACI 318 — Whitney Stress Block |
+| Clarifier / Sedimentation Tank Sizing | Environmental | Metcalf & Eddy Design Criteria |
 
 ## Getting Started
 

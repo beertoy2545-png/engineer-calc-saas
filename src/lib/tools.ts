@@ -99,4 +99,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Civil",
     standard: "ACI 318 — Whitney Stress Block",
   },
+  {
+    href: "/clarifier-design",
+    title: "Clarifier / Sedimentation Tank Sizing",
+    description:
+      "ตรวจสอบขนาดถังตกตะกอนน้ำเสียเทียบกับเกณฑ์ SOR, HRT, Weir Loading Rate มาตรฐาน",
+    category: "Environmental",
+    standard: "Metcalf & Eddy Design Criteria",
+  },
 ];
