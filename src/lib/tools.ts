@@ -155,4 +155,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Automotive",
     standard: "Rigid-Body Vehicle Dynamics",
   },
+  {
+    href: "/bearing-capacity",
+    title: "Shallow Foundation Bearing Capacity",
+    description:
+      "คำนวณกำลังรับน้ำหนักฐานรากตื้นจากคุณสมบัติดิน (φ, c, γ) และรูปทรงฐานราก",
+    category: "Civil",
+    standard: "General Bearing Capacity Equation",
+  },
 ];

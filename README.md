@@ -30,6 +30,7 @@
 | Petroleum: Reserves & Well Inflow | Petroleum | Volumetric Method / Darcy Radial Flow |
 | Biomechanics: Joint Static Equilibrium | Biomedical | Static Equilibrium Analysis |
 | Vehicle Braking & Weight Transfer | Automotive | Rigid-Body Vehicle Dynamics |
+| Shallow Foundation Bearing Capacity | Civil | General Bearing Capacity Equation |
 
 ## Getting Started
 
