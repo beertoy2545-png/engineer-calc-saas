@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   calculateSecondOrderResponse,
+  calculateStepResponseCurve,
   calculateZieglerNicholsTuning,
 } from "./controlSystems";
 
@@ -69,5 +70,33 @@ describe("calculateZieglerNicholsTuning", () => {
     expect(result.pid.kp).toBeCloseTo(4.8, 6);
     expect(result.pid.ti).toBeCloseTo(1.0, 6);
     expect(result.pid.td).toBeCloseTo(0.25, 6);
+  });
+});
+
+describe("calculateStepResponseCurve", () => {
+  it("starts at 0 and reaches steady-state 1 well after settling time", () => {
+    const input = { naturalFreqRadS: 10, dampingRatio: 0.5 };
+    const points = calculateStepResponseCurve(input, 2, 201);
+    expect(points[0].value).toBeCloseTo(0, 6);
+    expect(points[points.length - 1].value).toBeCloseTo(1, 2);
+  });
+
+  it("peaks at a value matching calculateSecondOrderResponse's own %overshoot figure", () => {
+    const input = { naturalFreqRadS: 10, dampingRatio: 0.5 };
+    const response = calculateSecondOrderResponse(input);
+    const points = calculateStepResponseCurve(input, response.peakTimeS! * 1.2, 4001);
+
+    const peak = points.reduce((max, p) => (p.value > max.value ? p : max), points[0]);
+    const expectedPeakValue = 1 + response.percentOvershoot! / 100;
+
+    expect(peak.tS).toBeCloseTo(response.peakTimeS!, 2);
+    expect(peak.value).toBeCloseTo(expectedPeakValue, 2);
+  });
+
+  it("never overshoots 1 for a critically damped or overdamped system", () => {
+    const critical = calculateStepResponseCurve({ naturalFreqRadS: 10, dampingRatio: 1 }, 2);
+    const overdamped = calculateStepResponseCurve({ naturalFreqRadS: 10, dampingRatio: 1.8 }, 3);
+    expect(Math.max(...critical.map((p) => p.value))).toBeLessThanOrEqual(1.0001);
+    expect(Math.max(...overdamped.map((p) => p.value))).toBeLessThanOrEqual(1.0001);
   });
 });

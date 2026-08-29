@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import {
   calculateSecondOrderResponse,
+  calculateStepResponseCurve,
   calculateZieglerNicholsTuning,
   type SecondOrderInput,
   type ZieglerNicholsInput,
@@ -10,6 +11,7 @@ import {
 import { NumberField } from "@/components/ui/NumberField";
 import { WarningBanner } from "@/components/ui/WarningBanner";
 import { fmt } from "@/lib/format";
+import StepResponseChart from "@/components/StepResponseChart";
 
 const DEFAULT_SO: SecondOrderInput = { naturalFreqRadS: 10, dampingRatio: 0.5 };
 const DEFAULT_ZN: ZieglerNicholsInput = { ultimateGainKu: 8, ultimatePeriodTuS: 2 };
@@ -20,6 +22,12 @@ export default function ControlSystemsCalculator() {
 
   const soResult = useMemo(() => calculateSecondOrderResponse(soInput), [soInput]);
   const znResult = useMemo(() => calculateZieglerNicholsTuning(znInput), [znInput]);
+
+  const curveDurationS = Math.max(soResult.settlingTime2PctS * 1.5, 0.1);
+  const stepResponsePoints = useMemo(
+    () => calculateStepResponseCurve(soInput, curveDurationS, 300),
+    [soInput, curveDurationS],
+  );
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -38,7 +46,16 @@ export default function ControlSystemsCalculator() {
         ที่ปลอดภัยเท่านั้น
       </WarningBanner>
 
-      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 className="mb-3 font-medium text-slate-900">Step Response Curve</h2>
+        <StepResponseChart
+          points={stepResponsePoints}
+          peakTimeS={soResult.peakTimeS}
+          settlingTimeS={soResult.settlingTime2PctS}
+        />
+      </div>
+
+      <div className="mt-8 grid grid-cols-1 items-start gap-8 lg:grid-cols-2">
         {/* Second order response */}
         <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="font-medium text-slate-900">
