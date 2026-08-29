@@ -33,6 +33,7 @@
 | Shallow Foundation Bearing Capacity | Civil | General Bearing Capacity Equation |
 | Renewable Energy: Solar PV & Wind Turbine | Renewable Energy | PVWatts Method / Betz Limit |
 | Fatigue Analysis (Modified Goodman) | Machine Design | Marin Equation / Modified Goodman |
+| Ship Stability: Metacentric Height | Marine | IMO IS Code 2008 |
 
 ## Getting Started
 

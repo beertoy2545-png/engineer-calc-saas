@@ -179,4 +179,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Machine Design",
     standard: "Marin Equation / Modified Goodman",
   },
+  {
+    href: "/ship-stability",
+    title: "Ship Stability: Metacentric Height",
+    description:
+      "คำนวณ GM เบื้องต้นของตัวเรือทรงกล่อง เทียบกับเกณฑ์ขั้นต่ำ IMO IS Code 2008",
+    category: "Marine",
+    standard: "IMO IS Code 2008",
+  },
 ];
