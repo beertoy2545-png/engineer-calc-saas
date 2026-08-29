@@ -24,6 +24,7 @@
 | Statistics & Regression | Utilities | Least-Squares Linear Regression |
 | RC Beam Flexural Design | Civil | ACI 318 — Whitney Stress Block |
 | Clarifier / Sedimentation Tank Sizing | Environmental | Metcalf & Eddy Design Criteria |
+| Control Systems: Response & PID Tuning | Control Systems | Ziegler-Nichols Tuning Method |
 
 ## Getting Started
 

@@ -107,4 +107,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Environmental",
     standard: "Metcalf & Eddy Design Criteria",
   },
+  {
+    href: "/control-systems",
+    title: "Control Systems: Response & PID Tuning",
+    description:
+      "วิเคราะห์การตอบสนองระบบอันดับสอง และปรับจูน PID ด้วยวิธี Ziegler-Nichols",
+    category: "Control Systems",
+    standard: "Ziegler-Nichols Tuning Method",
+  },
 ];
