@@ -123,4 +123,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Aerospace",
     standard: "Tsiolkovsky Rocket Equation",
   },
+  {
+    href: "/engineering-economics",
+    title: "Engineering Economics",
+    description:
+      "ประเมินความคุ้มค่าโครงการ NPV, IRR, Payback Period และจุดคุ้มทุน ใช้ได้ทุกสาขา",
+    category: "Industrial",
+    standard: "Time Value of Money",
+  },
 ];

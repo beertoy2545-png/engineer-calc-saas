@@ -26,6 +26,7 @@
 | Clarifier / Sedimentation Tank Sizing | Environmental | Metcalf & Eddy Design Criteria |
 | Control Systems: Response & PID Tuning | Control Systems | Ziegler-Nichols Tuning Method |
 | Rocket Propulsion & Orbital Mechanics | Aerospace | Tsiolkovsky Rocket Equation |
+| Engineering Economics | Industrial | Time Value of Money (NPV/IRR/Break-Even) |
 
 ## Getting Started
 
