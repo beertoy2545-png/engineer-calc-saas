@@ -147,4 +147,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Biomedical",
     standard: "Static Equilibrium Analysis",
   },
+  {
+    href: "/vehicle-dynamics",
+    title: "Vehicle Braking & Weight Transfer",
+    description:
+      "คำนวณระยะเบรกและการถ่ายน้ำหนักระหว่างเบรกกะทันหัน จากมวลรถ ความสูง CG และฐานล้อ",
+    category: "Automotive",
+    standard: "Rigid-Body Vehicle Dynamics",
+  },
 ];
