@@ -211,4 +211,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Agricultural",
     standard: "FAO-56 Crop Coefficient Method",
   },
+  {
+    href: "/yarn-count",
+    title: "Textile: Yarn Count & Fabric Weight",
+    description:
+      "แปลงระบบเบอร์ด้าย (Tex, Denier, Ne, Nm) และคำนวณน้ำหนักผ้าต่อพื้นที่ (GSM)",
+    category: "Textile",
+    standard: "Standard Yarn Count Definitions",
+  },
 ];
