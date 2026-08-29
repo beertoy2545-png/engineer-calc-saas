@@ -9,50 +9,15 @@ import {
   type PipeMaterial,
   type PumpHeadPowerInput,
 } from "@/lib/calculations/pumpPower";
+import { NumberField as Field } from "@/components/ui/NumberField";
+import { WarningBanner } from "@/components/ui/WarningBanner";
+import { fmt } from "@/lib/format";
 
 const MATERIAL_LABEL: Record<PipeMaterial, string> = {
   steel: "เหล็ก (Commercial Steel, SCH40)",
   galvanized: "เหล็กชุบสังกะสี (Galvanized, SCH40)",
   pvc: "PVC (PN10)",
 };
-
-function fmt(n: number, digits = 2) {
-  if (!Number.isFinite(n)) return "-";
-  return n.toLocaleString(undefined, {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  });
-}
-
-function Field({
-  label,
-  unit,
-  value,
-  onChange,
-  step = 1,
-}: {
-  label: string;
-  unit?: string;
-  value: number;
-  onChange: (v: number) => void;
-  step?: number;
-}) {
-  return (
-    <label className="flex flex-col gap-1 text-sm">
-      <span className="text-slate-700">{label}</span>
-      <div className="flex items-center gap-2">
-        <input
-          type="number"
-          className="w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900"
-          value={value}
-          step={step}
-          onChange={(e) => onChange(Number(e.target.value))}
-        />
-        {unit && <span className="w-16 shrink-0 text-slate-500">{unit}</span>}
-      </div>
-    </label>
-  );
-}
 
 const DEFAULT_HEAD_POWER: PumpHeadPowerInput = {
   flowRateLpm: 600,
@@ -111,11 +76,11 @@ export default function PumpCalculator() {
         Available (eq. 6.8)
       </p>
 
-      <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+      <WarningBanner>
         ⚠️ เครื่องมือนี้ช่วยประมาณการเบื้องต้นเท่านั้น การเลือกปั๊มจริงต้องอ้างอิง
         Pump Curve และค่า NPSHR จาก datasheet ของผู้ผลิตเสมอ
         กรุณาให้วิศวกรที่มีใบอนุญาตตรวจสอบก่อนติดตั้งจริง
-      </div>
+      </WarningBanner>
 
       {/* Section 1: Head & Power */}
       <div className="mt-8 grid grid-cols-1 items-start gap-8 lg:grid-cols-[380px_1fr]">

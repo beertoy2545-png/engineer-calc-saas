@@ -6,44 +6,9 @@ import {
   calculateShaftDesign,
   type ShaftDesignInput,
 } from "@/lib/calculations/shaftDesign";
-
-function fmt(n: number, digits = 2) {
-  if (!Number.isFinite(n)) return "-";
-  return n.toLocaleString(undefined, {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  });
-}
-
-function Field({
-  label,
-  unit,
-  value,
-  onChange,
-  step = 1,
-}: {
-  label: string;
-  unit?: string;
-  value: number;
-  onChange: (v: number) => void;
-  step?: number;
-}) {
-  return (
-    <label className="flex flex-col gap-1 text-sm">
-      <span className="text-slate-700">{label}</span>
-      <div className="flex items-center gap-2">
-        <input
-          type="number"
-          className="w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900"
-          value={value}
-          step={step}
-          onChange={(e) => onChange(Number(e.target.value))}
-        />
-        {unit && <span className="w-16 shrink-0 text-slate-500">{unit}</span>}
-      </div>
-    </label>
-  );
-}
+import { NumberField as Field } from "@/components/ui/NumberField";
+import { WarningBanner } from "@/components/ui/WarningBanner";
+import { fmt } from "@/lib/format";
 
 const DEFAULT_MATERIAL_KEY = "aisi1040";
 
@@ -87,11 +52,11 @@ export default function ShaftDesignCalculator() {
         stress กับ shock/fatigue factor kb, kt
       </p>
 
-      <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+      <WarningBanner>
         ⚠️ วิธีนี้ยังไม่รวมผลของ Stress Concentration (Kc, Kcs) และการวิเคราะห์
         Fatigue แบบละเอียด (Soderberg) — เหมาะสำหรับประมาณขนาดเบื้องต้นเท่านั้น
         กรุณาให้วิศวกรที่มีใบอนุญาตตรวจสอบก่อนนำไปผลิตจริง
-      </div>
+      </WarningBanner>
 
       <div className="mt-8 grid grid-cols-1 items-start gap-8 lg:grid-cols-[380px_1fr]">
         <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">

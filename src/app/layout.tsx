@@ -14,8 +14,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "เครื่องคำนวณวิศวกรรม HVAC",
-  description: "เครื่องมือคำนวณสำหรับวิศวกรเครื่องกล/HVAC",
+  title: {
+    default: "Engineer Calc — เครื่องมือคำนวณวิศวกรรมออนไลน์",
+    template: "%s | Engineer Calc",
+  },
+  description:
+    "เครื่องมือคำนวณวิศวกรรมออนไลน์ฟรี ครอบคลุม HVAC, Piping, Pump, Machine Design อ้างอิงสูตรและมาตรฐานจากเอกสารวิชาการจริง",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

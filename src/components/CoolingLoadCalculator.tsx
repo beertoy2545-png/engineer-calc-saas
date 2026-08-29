@@ -6,6 +6,8 @@ import {
   type CoolingLoadInput,
   type GlazingType,
 } from "@/lib/calculations/coolingLoad";
+import { NumberField } from "@/components/ui/NumberField";
+import { WarningBanner } from "@/components/ui/WarningBanner";
 
 const GLAZING_LABEL: Record<GlazingType, string> = {
   single: "กระจกชั้นเดียว",
@@ -25,39 +27,6 @@ const DEFAULT_INPUT: CoolingLoadInput = {
   indoorTempC: 25,
   safetyFactorPct: 10,
 };
-
-function NumberField({
-  label,
-  unit,
-  value,
-  onChange,
-  step = 1,
-  min = 0,
-}: {
-  label: string;
-  unit: string;
-  value: number;
-  onChange: (v: number) => void;
-  step?: number;
-  min?: number;
-}) {
-  return (
-    <label className="flex flex-col gap-1 text-sm">
-      <span className="text-slate-700">{label}</span>
-      <div className="flex items-center gap-2">
-        <input
-          type="number"
-          className="w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900 focus:border-slate-500 focus:outline-none"
-          value={value}
-          step={step}
-          min={min}
-          onChange={(e) => onChange(Number(e.target.value))}
-        />
-        <span className="w-16 shrink-0 text-slate-500">{unit}</span>
-      </div>
-    </label>
-  );
-}
 
 function ResultRow({ label, value }: { label: string; value: string }) {
   return (
@@ -88,10 +57,10 @@ export default function CoolingLoadCalculator() {
         rule-of-thumb
       </p>
 
-      <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+      <WarningBanner>
         ⚠️ นี่คือผลการประมาณการเบื้องต้นเท่านั้น ไม่ใช่การคำนวณที่ผ่านการรับรองทางวิศวกรรม
         ก่อนนำไปใช้ออกแบบหรือติดตั้งจริง กรุณาให้วิศวกรที่มีใบอนุญาตตรวจสอบผลลัพธ์อีกครั้ง
-      </div>
+      </WarningBanner>
 
       <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
         <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">

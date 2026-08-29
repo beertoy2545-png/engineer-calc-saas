@@ -8,6 +8,9 @@ import {
   type PipeMaterial,
   type PipeSizingInput,
 } from "@/lib/calculations/pipeSizing";
+import { NumberField } from "@/components/ui/NumberField";
+import { WarningBanner } from "@/components/ui/WarningBanner";
+import { fmt } from "@/lib/format";
 
 const MATERIAL_LABEL: Record<PipeMaterial, string> = {
   steel: "เหล็ก (Commercial Steel, SCH40)",
@@ -33,14 +36,6 @@ const DEFAULT_INPUT: PipeSizingInput = {
     checkValve: 1,
   },
 };
-
-function fmt(n: number, digits = 2) {
-  if (!Number.isFinite(n)) return "-";
-  return n.toLocaleString(undefined, {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  });
-}
 
 export default function PipeSizingCalculator() {
   const [input, setInput] = useState<PipeSizingInput>(DEFAULT_INPUT);
@@ -69,28 +64,22 @@ export default function PipeSizingCalculator() {
         Darcy-Weisbach, Swamee-Jain
       </p>
 
-      <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+      <WarningBanner>
         ⚠️ ผลลัพธ์นี้เป็นเครื่องมือช่วยประมาณการสำหรับการเรียน/ออกแบบเบื้องต้นเท่านั้น
         ก่อนนำไปใช้ก่อสร้างจริง กรุณาให้วิศวกรที่มีใบอนุญาตตรวจสอบผลลัพธ์อีกครั้ง
-      </div>
+      </WarningBanner>
 
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[380px_1fr]">
         {/* Inputs */}
         <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="font-medium text-slate-900">ข้อมูลระบบ</h2>
 
-          <label className="flex flex-col gap-1 text-sm">
-            <span className="text-slate-700">อัตราการไหล (Flow Rate)</span>
-            <div className="flex items-center gap-2">
-              <input
-                type="number"
-                className="w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900"
-                value={input.flowRateLpm}
-                onChange={(e) => update("flowRateLpm", Number(e.target.value))}
-              />
-              <span className="w-20 shrink-0 text-slate-500">LPM</span>
-            </div>
-          </label>
+          <NumberField
+            label="อัตราการไหล (Flow Rate)"
+            unit="LPM"
+            value={input.flowRateLpm}
+            onChange={(v) => update("flowRateLpm", v)}
+          />
 
           <label className="flex flex-col gap-1 text-sm">
             <span className="text-slate-700">วัสดุท่อ</span>
@@ -107,31 +96,19 @@ export default function PipeSizingCalculator() {
             </select>
           </label>
 
-          <label className="flex flex-col gap-1 text-sm">
-            <span className="text-slate-700">อุณหภูมิน้ำ</span>
-            <div className="flex items-center gap-2">
-              <input
-                type="number"
-                className="w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900"
-                value={input.waterTempC}
-                onChange={(e) => update("waterTempC", Number(e.target.value))}
-              />
-              <span className="w-20 shrink-0 text-slate-500">°C</span>
-            </div>
-          </label>
+          <NumberField
+            label="อุณหภูมิน้ำ"
+            unit="°C"
+            value={input.waterTempC}
+            onChange={(v) => update("waterTempC", v)}
+          />
 
-          <label className="flex flex-col gap-1 text-sm">
-            <span className="text-slate-700">ความยาวท่อรวม</span>
-            <div className="flex items-center gap-2">
-              <input
-                type="number"
-                className="w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900"
-                value={input.pipeLengthM}
-                onChange={(e) => update("pipeLengthM", Number(e.target.value))}
-              />
-              <span className="w-20 shrink-0 text-slate-500">m</span>
-            </div>
-          </label>
+          <NumberField
+            label="ความยาวท่อรวม"
+            unit="m"
+            value={input.pipeLengthM}
+            onChange={(v) => update("pipeLengthM", v)}
+          />
 
           <label className="flex flex-col gap-1 text-sm">
             <span className="text-slate-700">การใช้งาน (กำหนดช่วงความเร็วแนะนำ)</span>
@@ -152,28 +129,16 @@ export default function PipeSizingCalculator() {
 
           {input.application === "custom" && (
             <div className="grid grid-cols-2 gap-3">
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-slate-700">Vmin</span>
-                <input
-                  type="number"
-                  className="rounded-md border border-slate-300 px-3 py-2 text-slate-900"
-                  value={input.customVelocityMin ?? 0.5}
-                  onChange={(e) =>
-                    update("customVelocityMin", Number(e.target.value))
-                  }
-                />
-              </label>
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-slate-700">Vmax</span>
-                <input
-                  type="number"
-                  className="rounded-md border border-slate-300 px-3 py-2 text-slate-900"
-                  value={input.customVelocityMax ?? 3}
-                  onChange={(e) =>
-                    update("customVelocityMax", Number(e.target.value))
-                  }
-                />
-              </label>
+              <NumberField
+                label="Vmin"
+                value={input.customVelocityMin ?? 0.5}
+                onChange={(v) => update("customVelocityMin", v)}
+              />
+              <NumberField
+                label="Vmax"
+                value={input.customVelocityMax ?? 3}
+                onChange={(v) => update("customVelocityMax", v)}
+              />
             </div>
           )}
 
