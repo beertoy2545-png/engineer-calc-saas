@@ -51,4 +51,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Electrical",
     standard: "IEC 60364-5-52",
   },
+  {
+    href: "/beam-analysis",
+    title: "Beam Bending & Deflection",
+    description:
+      "คำนวณโมเมนต์ดัด ความเค้น และ Deflection ของคานช่วงเดียว/คานยื่น ภายใต้โหลดจุดหรือโหลดแผ่",
+    category: "Structural",
+    standard: "Euler-Bernoulli Beam Theory",
+  },
 ];
