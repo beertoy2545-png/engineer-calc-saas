@@ -8,6 +8,7 @@ import {
 } from "@/lib/calculations/statistics";
 import { WarningBanner } from "@/components/ui/WarningBanner";
 import { fmt } from "@/lib/format";
+import ScatterPlot from "@/components/ScatterPlot";
 
 const DEFAULT_DATA = "23.1, 24.5, 22.8, 25.0, 23.9, 24.2, 23.5, 24.8, 22.9, 23.6";
 const DEFAULT_X = "1, 2, 3, 4, 5, 6, 7, 8";
@@ -52,7 +53,7 @@ export default function StatisticsCalculator() {
         (hypothesis testing), การตรวจสอบ outlier อัตโนมัติ, หรือ regression ที่ไม่ใช่เชิงเส้น
       </WarningBanner>
 
-      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 items-start gap-8 lg:grid-cols-2">
         {/* Descriptive statistics */}
         <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="font-medium text-slate-900">สถิติเชิงพรรณนา (Descriptive Statistics)</h2>
@@ -120,6 +121,8 @@ export default function StatisticsCalculator() {
               <span className="text-red-600">— จำนวนจุด X และ Y ต้องเท่ากัน</span>
             )}
           </p>
+
+          <ScatterPlot xs={xs} ys={ys} predict={regression?.predict} />
 
           {regression ? (
             <>
