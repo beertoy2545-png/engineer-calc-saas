@@ -32,6 +32,7 @@
 | Vehicle Braking & Weight Transfer | Automotive | Rigid-Body Vehicle Dynamics |
 | Shallow Foundation Bearing Capacity | Civil | General Bearing Capacity Equation |
 | Renewable Energy: Solar PV & Wind Turbine | Renewable Energy | PVWatts Method / Betz Limit |
+| Fatigue Analysis (Modified Goodman) | Machine Design | Marin Equation / Modified Goodman |
 
 ## Getting Started
 

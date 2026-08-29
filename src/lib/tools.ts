@@ -171,4 +171,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Renewable Energy",
     standard: "PVWatts Method / Betz Limit",
   },
+  {
+    href: "/fatigue-analysis",
+    title: "Fatigue Analysis (Modified Goodman)",
+    description:
+      "ประมาณ Endurance Limit ด้วย Marin Equation และตรวจสอบ Safety Factor ด้วยเกณฑ์ Goodman",
+    category: "Machine Design",
+    standard: "Marin Equation / Modified Goodman",
+  },
 ];
