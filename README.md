@@ -19,6 +19,7 @@
 | Cable Sizing & Voltage Drop | Electrical | IEC 60364-5-52 |
 | Beam Bending & Deflection | Structural | Euler-Bernoulli Beam Theory |
 | Heat Exchanger Sizing | Chemical / Process | LMTD Method |
+| 2D Truss Analysis | Structural | Matrix Stiffness Method (numerical solver) |
 
 ## Getting Started
 

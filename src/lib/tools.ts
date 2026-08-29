@@ -75,4 +75,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Structural",
     standard: "Matrix Stiffness Method",
   },
+  {
+    href: "/unit-converter",
+    title: "Unit Converter",
+    description:
+      "แปลงหน่วยวิศวกรรมที่ใช้บ่อย ความยาว พื้นที่ ปริมาตร มวล แรง ความดัน พลังงาน กำลัง และอื่นๆ",
+    category: "Utilities",
+    standard: "SI / Imperial standard constants",
+  },
 ];
