@@ -195,4 +195,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Mining",
     standard: "Infinite Slope Method",
   },
+  {
+    href: "/radiation-physics",
+    title: "Radiation Physics: Decay & Shielding",
+    description:
+      "คำนวณการสลายตัวของสารกัมมันตรังสี และการลดทอนรังสีผ่านวัสดุกำบัง",
+    category: "Nuclear",
+    standard: "Exponential Decay Law / Beer-Lambert",
+  },
 ];

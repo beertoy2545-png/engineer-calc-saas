@@ -35,6 +35,7 @@
 | Fatigue Analysis (Modified Goodman) | Machine Design | Marin Equation / Modified Goodman |
 | Ship Stability: Metacentric Height | Marine | IMO IS Code 2008 |
 | Slope Stability (Infinite Slope) | Mining | Infinite Slope Method |
+| Radiation Physics: Decay & Shielding | Nuclear | Exponential Decay Law / Beer-Lambert |
 
 ## Getting Started
 
