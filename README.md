@@ -28,6 +28,7 @@
 | Rocket Propulsion & Orbital Mechanics | Aerospace | Tsiolkovsky Rocket Equation |
 | Engineering Economics | Industrial | Time Value of Money (NPV/IRR/Break-Even) |
 | Petroleum: Reserves & Well Inflow | Petroleum | Volumetric Method / Darcy Radial Flow |
+| Biomechanics: Joint Static Equilibrium | Biomedical | Static Equilibrium Analysis |
 
 ## Getting Started
 

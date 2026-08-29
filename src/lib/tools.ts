@@ -139,4 +139,12 @@ export const TOOLS: ToolInfo[] = [
     category: "Petroleum",
     standard: "Volumetric Method / Darcy Radial Flow",
   },
+  {
+    href: "/biomechanics",
+    title: "Biomechanics: Joint Static Equilibrium",
+    description:
+      "วิเคราะห์แรงกล้ามเนื้อและแรงปฏิกิริยาที่ข้อต่อด้วยหลัก Statics (Torque & Force Balance)",
+    category: "Biomedical",
+    standard: "Static Equilibrium Analysis",
+  },
 ];
