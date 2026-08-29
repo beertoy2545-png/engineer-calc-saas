@@ -10,6 +10,7 @@ import {
 import { NumberField } from "@/components/ui/NumberField";
 import { WarningBanner } from "@/components/ui/WarningBanner";
 import { fmt } from "@/lib/format";
+import TrussDiagram, { type CanvasMode } from "@/components/TrussDiagram";
 
 // Default: the reference three-bar truss (matches trussAnalysis.test.ts)
 const DEFAULT_NODES: TrussNode[] = [
@@ -28,10 +29,27 @@ const DEFAULT_MEMBERS: TrussMember[] = [
 let nextNodeId = 5;
 let nextMemberId = 4;
 
+const MODE_LABEL: Record<CanvasMode, string> = {
+  select: "เลือก",
+  addNode: "+ วาดจุดต่อ",
+  addMember: "วาดชิ้นส่วน",
+  delete: "ลบ (คลิกที่วัตถุ)",
+};
+
+const MODE_HINT: Record<CanvasMode, string> = {
+  select: "คลิกจุดต่อเพื่อเลือกและแก้ไขในตารางด้านล่าง",
+  addNode: "คลิกบน canvas เพื่อวางจุดต่อใหม่ตำแหน่งนั้น",
+  addMember: "คลิกจุดต่อต้นทาง แล้วคลิกจุดต่อปลายทาง เพื่อสร้างชิ้นส่วนเชื่อมสองจุด",
+  delete: "คลิกจุดต่อหรือชิ้นส่วนที่ต้องการลบ",
+};
+
 export default function TrussAnalysisCalculator() {
   const [nodes, setNodes] = useState<TrussNode[]>(DEFAULT_NODES);
   const [members, setMembers] = useState<TrussMember[]>(DEFAULT_MEMBERS);
   const [elasticModulusGpa, setElasticModulusGpa] = useState(200);
+  const [mode, setMode] = useState<CanvasMode>("select");
+  const [selectedNodeId, setSelectedNodeId] = useState<number | null>(null);
+  const [pendingMemberFromId, setPendingMemberFromId] = useState<number | null>(null);
 
   const input: TrussInput = useMemo(
     () => ({ nodes, members, elasticModulusGpa }),
@@ -51,10 +69,12 @@ export default function TrussAnalysisCalculator() {
       ...prev,
       { id, xM: 0, yM: 0, fixX: false, fixY: false, loadFxKn: 0, loadFyKn: 0 },
     ]);
+    return id;
   };
   const removeNode = (id: number) => {
     setNodes((prev) => prev.filter((n) => n.id !== id));
     setMembers((prev) => prev.filter((m) => m.nodeAId !== id && m.nodeBId !== id));
+    setSelectedNodeId((cur) => (cur === id ? null : cur));
   };
 
   const addMember = () => {
@@ -67,6 +87,39 @@ export default function TrussAnalysisCalculator() {
   };
   const removeMember = (id: number) =>
     setMembers((prev) => prev.filter((m) => m.id !== id));
+
+  const handleCanvasClick = (xM: number, yM: number) => {
+    if (mode !== "addNode") return;
+    const id = nextNodeId++;
+    setNodes((prev) => [
+      ...prev,
+      { id, xM, yM, fixX: false, fixY: false, loadFxKn: 0, loadFyKn: 0 },
+    ]);
+    setSelectedNodeId(id);
+  };
+
+  const handleNodeClick = (nodeId: number) => {
+    if (mode === "select") {
+      setSelectedNodeId(nodeId);
+    } else if (mode === "addMember") {
+      if (pendingMemberFromId === null) {
+        setPendingMemberFromId(nodeId);
+      } else if (pendingMemberFromId !== nodeId) {
+        const id = nextMemberId++;
+        setMembers((prev) => [
+          ...prev,
+          { id, nodeAId: pendingMemberFromId, nodeBId: nodeId, areaMm2: 1000 },
+        ]);
+        setPendingMemberFromId(null);
+      }
+    } else if (mode === "delete") {
+      removeNode(nodeId);
+    }
+  };
+
+  const handleMemberClick = (memberId: number) => {
+    if (mode === "delete") removeMember(memberId);
+  };
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -94,6 +147,55 @@ export default function TrussAnalysisCalculator() {
       )}
 
       <div className="mt-8 space-y-6">
+        {/* Interactive canvas */}
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <h2 className="font-medium text-slate-900">วาดโครงสร้าง (Canvas)</h2>
+            <div className="flex flex-wrap gap-1.5">
+              {(Object.keys(MODE_LABEL) as CanvasMode[]).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => {
+                    setMode(m);
+                    setPendingMemberFromId(null);
+                  }}
+                  className={`rounded-md px-3 py-1.5 text-xs font-medium ${
+                    mode === m
+                      ? "bg-slate-900 text-white"
+                      : "border border-slate-300 text-slate-600 hover:bg-slate-100"
+                  }`}
+                >
+                  {MODE_LABEL[m]}
+                </button>
+              ))}
+            </div>
+          </div>
+          <p className="mb-3 text-xs text-slate-500">{MODE_HINT[mode]}</p>
+          <TrussDiagram
+            nodes={nodes}
+            members={members}
+            nodeResults={result.nodeResults}
+            memberResults={result.memberResults}
+            mode={mode}
+            selectedNodeId={selectedNodeId}
+            pendingMemberFromId={pendingMemberFromId}
+            onCanvasClick={handleCanvasClick}
+            onNodeClick={handleNodeClick}
+            onMemberClick={handleMemberClick}
+          />
+          <div className="mt-2 flex flex-wrap gap-4 text-xs text-slate-500">
+            <span className="flex items-center gap-1">
+              <span className="inline-block h-2 w-4 rounded bg-blue-600" /> แรงดึง (Tension)
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="inline-block h-2 w-4 rounded bg-orange-600" /> แรงอัด (Compression)
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="inline-block h-2 w-4 rounded bg-slate-400" /> แรงในชิ้นส่วน ≈ 0
+            </span>
+          </div>
+        </div>
+
         <NumberField
           label="Elastic Modulus (E) — ใช้ร่วมกันทุกชิ้นส่วน"
           unit="GPa"
@@ -132,7 +234,13 @@ export default function TrussAnalysisCalculator() {
                 {nodes.map((node) => {
                   const r = result.nodeResults.find((n) => n.nodeId === node.id);
                   return (
-                    <tr key={node.id} className="border-b border-slate-100 last:border-0">
+                    <tr
+                      key={node.id}
+                      onClick={() => setSelectedNodeId(node.id)}
+                      className={`cursor-pointer border-b border-slate-100 last:border-0 ${
+                        node.id === selectedNodeId ? "bg-blue-50" : ""
+                      }`}
+                    >
                       <td className="px-2 py-1.5 font-medium">{node.id}</td>
                       <td className="px-2 py-1.5">
                         <input
